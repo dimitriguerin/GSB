@@ -17,10 +17,11 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=GSBexamen';   		
+      	private static $bdd='dbname=gsb';   		
       	private static $user='root' ;    		
       	private static $mdp='simone' ;	
 		private static $monPdo;
+
 		private static $monPdoGsb=null;
 /**
  * Constructeur privé, crée l'instance de PDO qui sera sollicitée
@@ -73,8 +74,8 @@ class PdoGsb{
  * @return tous les champs des lignes de frais hors forfait sous la forme d'un tableau associatif 
 */
 	public function getLesFraisHorsForfait($idVisiteur,$mois){
-	    $req = "select * from LigneFraisHorsForfait where LigneFraisHorsForfait.idVisiteur ='$idVisiteur' 
-		and LigneFraisHorsForfait.mois = '$mois' ";	
+	    $req = "select * from LigneFraisHorsForfait, MoyenDePaiementHorsForfait where LigneFraisHorsForfait.idVisiteur ='$idVisiteur' 
+		and LigneFraisHorsForfait.mois = '$mois' and LigneFraisHorsForfait.idMoyenDePaiement = MoyenDePaiementHorsForfait.MOY_ID";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesLignes = $res->fetchAll();
 		$nbLignes = count($lesLignes);
@@ -84,6 +85,10 @@ class PdoGsb{
 		}
 		return $lesLignes; 
 	}
+
+	public function getLesModes(){
+        return PdoGsb::$monPdo->query("select * from MoyenDePaiementHorsForfait");
+    }
 /**
  * Retourne le nombre de justificatif d'un visiteur pour un mois donné
  
@@ -231,7 +236,7 @@ class PdoGsb{
 */
 	public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant){
 		$dateFr = dateFrancaisVersAnglais($date);
-		$req = "insert into LigneFraisHorsForfait(idVisiteur,mois,libelle,date,montant)  
+		$req = "insert into LigneFraisHorsForfait (idVisiteur,mois,libelle,date,montant)
 		values('$idVisiteur','$mois','$libelle','$dateFr','$montant')";
 		PdoGsb::$monPdo->exec($req);
 	}
