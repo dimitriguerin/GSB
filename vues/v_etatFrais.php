@@ -46,11 +46,13 @@
 			$date = $unFraisHorsForfait['date'];
 			$libelle = $unFraisHorsForfait['libelle'];
 			$montant = $unFraisHorsForfait['montant'];
+      $idDeviceDePaiement = $unFraisForfait['device'];
 		?>
              <tr>
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
+                <td><?php echo $idDeviceDePaiement ?></td>
              </tr>
         <?php 
           }

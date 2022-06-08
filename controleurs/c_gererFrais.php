@@ -31,12 +31,13 @@ switch($action){
 		$dateFrais = $_REQUEST['dateFrais'];
 		$libelle = $_REQUEST['libelle'];
 		$montant = $_REQUEST['montant'];
-		valideInfosFrais($dateFrais,$libelle,$montant);
+		$idDeviceDePaiement = $_REQUEST['modes'];
+		valideInfosFrais($dateFrais,$libelle,$montant,$idDeviceDePaiement);
 		if (nbErreurs() != 0 ){
 			include("vues/v_erreurs.php");
 		}
 		else{
-			$pdo->creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$dateFrais,$montant);
+			$pdo->creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$dateFrais,$montant,$idDeviceDePaiement);
 		}
 		break;
 	}

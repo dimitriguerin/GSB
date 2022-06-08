@@ -16,14 +16,14 @@
 			$date = $unFraisHorsForfait['date'];
 			$montant = $unFraisHorsForfait['montant'];
 			$id = $unFraisHorsForfait['id'];
-      $MoyenDePaiementHorsForfait = $unFraisHorsForfait['DEV_LIB'];
+      $DeviceDePaiementHorsForfait = $unFraisHorsForfait['DEV_ID'];
       
 	?>
             <tr>
                 <td> <?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td><?php echo $MoyenDePaiementHorsForfait ?></td>
+                <td><?php echo $DeviceDePaiementHorsForfait ?></td>
                 <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>" 
 				onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
              </tr>
@@ -52,11 +52,11 @@
               <input type="text" id="txtMontantHF" name="montant" size="10" maxlength="10" value="" />
             </p>
 
-              <label for="txtMontantHF">Mode de paiement : </label>
+              <label for="txtMontantHF">Device de paiement : </label>
               <select name="modes" id="modes">
-                    <option value="" disabled selected hidden>--Choisir un mode--</option>
+                    <option value="" disabled selected hidden>--Choisir une device--</option>
                     <?php foreach($lesModes as $unMode){
-                        echo "<option value='",$unMode['MOY_ID'],"'>",$unMode['MOY_LIB'],"</option>";
+                        echo "<option value='",$unMode['DEV_ID'],"'>",$unMode['DEV_LIB'],"</option>";
                     }
                     ?>
 
